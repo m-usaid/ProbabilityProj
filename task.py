@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 from random import choices
 
 
-def task1(start, spread, uprob=True, weights=None):
+########################TASK 1##########################
+
+def task1(start, spread, eqprob=True, weights=None):
     direction = [1, 2, 3]
     position = [start]
-    if uprob:
+    if eqprob:
         for i in range(spread):
             upord = random.choice(direction)
             if upord == 1:
@@ -20,10 +22,23 @@ def task1(start, spread, uprob=True, weights=None):
                 newpos = position[i]
                 position.append(newpos)
     else:
-        upord = choices(direction, weights)
+
+        for i in range(spread):
+            upord = choices(direction, weights)
+            if upord == [1]:
+                newpos = position[i] + 1
+                position.append(newpos)
+            elif upord == [2]:
+                newpos = position[i] - 1
+                position.append(newpos)
+            else:
+                newpos = position[i]
+                position.append(newpos)
 
     plt.plot(position)
     plt.show()
 
 
-task1(99, 100000)
+task1(99, 100, eqprob=False, weights=[0.3, 0.5, 0.2])
+
+###########################################################3##
